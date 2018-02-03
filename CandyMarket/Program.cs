@@ -43,8 +43,6 @@ namespace CandyMarket
 					case '2':
 						 var selectedCandyType2 = EatNewCandyType(db);
                          db.SaveNewCandy(selectedCandyType.KeyChar);
-						 
-                         
 						break;
 					case '3':
                         /** throw away candy
@@ -59,7 +57,6 @@ namespace CandyMarket
 						 */
                         var selectedCandyType3 = ThrowAwayCandyType(db);
                         db.SaveNewCandy(selectedCandyType.KeyChar);
-
 						break;
 					case '4':
 						/** give candy
@@ -67,9 +64,13 @@ namespace CandyMarket
 						 * no one is impressed by user registration unless it's just amazingly fast & simple
 						 * 
 						 * select candy in any manner you prefer.
-						 * it may be easiest to reuse some code for throwing away candy since that's basically what you're doing. except instead of throwing it away, you're giving it away to another user.
+						 * it may be easiest to reuse some code for throwing away candy
+                         * since that's basically what you're doing.
+                         * except instead of throwing it away, you're giving it away to another user.
 						 * you'll need a way to select what user you're giving candy to.
-						 * one design suggestion would be to put candy "on the table" and then "give the candy on the table" to another user once you've selected all the candy to give away
+						 * one design suggestion would be to put candy "on the table" 
+                         * and then "give the candy on the table" to another user
+                         * once you've selected all the candy to give away
 						 */
 						break;
 					case '5':
