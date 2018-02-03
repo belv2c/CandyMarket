@@ -14,7 +14,8 @@ namespace CandyMarket
 
 		/**
 		 * this is just an example.
-		 * feel free to modify the definition of this collection "BagOfCandy" if you choose to implement the more difficult data model.
+		 * feel free to modify the definition of this collection "BagOfCandy" 
+         * if you choose to implement the more difficult data model.
 		 * Dictionary<CandyType, List<Candy>> BagOfCandy { get; set; }
 		 */
 
