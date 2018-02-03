@@ -8,7 +8,8 @@ namespace CandyMarket
 	{
 		static void Main(string[] args)
 		{
-			// wanna be a l33t h@x0r? skip all this console menu nonsense and go with straight command line arguments. something like `candy-market add taffy "blueberry cheesecake" yesterday`
+            // wanna be a l33t h@x0r? skip all this console menu nonsense and go with straight command line arguments.
+            // something like `candy-market add taffy "blueberry cheesecake" yesterday`
 			var db = SetupNewApp();
 
 			var run = true;
@@ -21,37 +22,44 @@ namespace CandyMarket
 					case '0':
 						run = false;
 						break;
-					case '1': // add candy to your bag
-
+					case '1': 
+                        // add candy to your bag
 						// select a candy type
 						var selectedCandyType = AddNewCandyType(db);
 
-						/** MORE DIFFICULT DATA MODEL
+                        /** MORE DIFFICULT DATA MODEL
 						 * show a new menu to enter candy details
-						 * it would be convenient to show the menu in stages e.g. press enter to go to next detail stage, but write the whole screen again with responses populated so far.
+                         
+						 * it would be convenient to show the menu in stages e.g.
+                         * press enter to go to next detail stage, 
+                         * but write the whole screen again with responses populated so far.
 						 */
 
-						// if(moreDifficultDataModel) bug - this is passing candy type right now (which just increments in our DatabaseContext), but should also be passing candy details
+                        // if(moreDifficultDataModel) bug - this is passing candy type right now 
+                        // (which just increments in our DatabaseContext),
+                        // but should also be passing candy details
 						db.SaveNewCandy(selectedCandyType.KeyChar);
 						break;
 					case '2':
-						/** eat candy
-						 * select a candy type
-						 * 
-						 * select specific candy details to eat from list filtered to selected candy type
-						 * 
-						 * enjoy candy
-						 */
+						 var selectedCandyType2 = EatNewCandyType(db);
+                         db.SaveNewCandy(selectedCandyType.KeyChar);
+						 
+                         
 						break;
 					case '3':
-						/** throw away candy
+                        /** throw away candy
 						 * select a candy type
-						 * if(moreDifficultDataModel) enhancement - give user the option to throw away old candy in one action. this would require capturing the detail of when the candy was new.
+						 * if(moreDifficultDataModel) enhancement - 
+                         * give user the option to throw away old candy in one action.
+                         * this would require capturing the detail of when the candy was new.
 						 * 
 						 * select specific candy details to throw away from list filtered to selected candy type
 						 * 
 						 * cry for lost candy
 						 */
+                        var selectedCandyType3 = ThrowAwayCandyType(db);
+                        db.SaveNewCandy(selectedCandyType.KeyChar);
+
 						break;
 					case '4':
 						/** give candy
@@ -75,6 +83,7 @@ namespace CandyMarket
 			}
 		}
 
+        // CONSOLE APP SETUP
 		static DatabaseContext SetupNewApp()
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
@@ -89,6 +98,10 @@ namespace CandyMarket
 			return db;
 		}
 
+        // ADD OPTIONS TO MAIN MENU
+        // WRITE MENU TO THE CONSOLE
+        // ASSIGN READKEY TO USEROPTION VARIABLE
+        // RETURN VALUE
 		static ConsoleKeyInfo MainMenu()
 		{
 			View mainMenu = new View()
@@ -101,6 +114,9 @@ namespace CandyMarket
 			return userOption;
 		}
 
+        // ADD NEW CANDY TYPE TO DATABASE CONTEXT
+        // ASSIGN CANDY TYPES TO GETCANDYTYPES ENUM
+        // NEW OPTION MENU WRITES TO THE CONSOLE
 		static ConsoleKeyInfo AddNewCandyType(DatabaseContext db)
 		{
 			var candyTypes = db.GetCandyTypes();
@@ -114,5 +130,35 @@ namespace CandyMarket
 			ConsoleKeyInfo selectedCandyType = Console.ReadKey();
 			return selectedCandyType;
 		}
-	}
+
+        // EAT NEW CANDY TYPE
+        static ConsoleKeyInfo EatNewCandyType(DatabaseContext db)
+        {
+            var candyTypes = db.GetCandyTypes();
+
+            var newCandyMenu = new View()
+                .AddMenuText("What type of candy do you want to eat?")
+                .AddMenuOptions(candyTypes);
+
+            Console.Write(newCandyMenu.GetFullMenu());
+
+            ConsoleKeyInfo selectedCandyType = Console.ReadKey();
+            return selectedCandyType;
+        }
+
+        // THROW AWAY CANDY
+        static ConsoleKeyInfo ThrowAwayCandyType(DatabaseContext db)
+        {
+            var candyTypes = db.GetCandyTypes();
+
+            var newCandyMenu = new View()
+                    .AddMenuText("Do you really want to throw away the candy?")
+                    .AddMenuOptions(candyTypes);
+
+            Console.Write(newCandyMenu.GetFullMenu());
+
+            ConsoleKeyInfo selectedCandyType = Console.ReadKey();
+            return selectedCandyType;
+        }
+    }
 }
