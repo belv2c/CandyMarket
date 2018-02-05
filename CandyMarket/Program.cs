@@ -16,7 +16,8 @@ namespace CandyMarket
 			{
 				ConsoleKeyInfo userInput = MainMenu();
 
-				switch (userInput.KeyChar)
+                int numberOfCandies = 0;
+                switch (userInput.KeyChar)
 				{
 					case '0':
 						run = false;
@@ -38,7 +39,9 @@ namespace CandyMarket
 						break;
 
 					case '4':
-
+                        var selectedCandyType4 = GiveAwayCandyType(db);
+                        SelectUser(db);
+                        db.GoodbyeCandy(selectedCandyType.KeyChar, numberOfCandies);
 						break;
 
 					case '5':
@@ -52,8 +55,13 @@ namespace CandyMarket
 			}
 		}
 
+        static void SelectUser(DatabaseContext db)
+        {
+            var selectedUser = TradeWithUser(db);
+        }
+
         // CONSOLE APP SETUP
-		static DatabaseContext SetupNewApp()
+        static DatabaseContext SetupNewApp()
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
 
@@ -144,6 +152,18 @@ namespace CandyMarket
 
             ConsoleKeyInfo selectedCandyType = Console.ReadKey();
             return selectedCandyType;
+        }
+
+        static ConsoleKeyInfo TradeWithUser(DatabaseContext db)
+        {
+            var users = db.GetUserTypes();
+            var userMenu = new View()
+                .AddMenuText("Select a user to trade with:")
+                .AddMenuOptions(users);
+
+            Console.Write(userMenu.GetFullMenu());
+            ConsoleKeyInfo selectedUser = Console.ReadKey();
+            return selectedUser;
         }
     }
 }

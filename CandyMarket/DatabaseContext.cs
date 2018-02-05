@@ -46,7 +46,6 @@ namespace CandyMarket
         internal void SaveNewCandy(char selectedCandyMenuOption)
 		{
 			var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
 			var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
 			var forRealTheCandyThisTime = (CandyType)candyOption;
 
@@ -72,7 +71,6 @@ namespace CandyMarket
         internal void EatCandy(char selectedCandyMenuOption)
         {
             var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
             var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
             var forRealTheCandyThisTime = (CandyType)candyOption;
 
@@ -95,26 +93,40 @@ namespace CandyMarket
             }
         }
 
-        internal void ThrowAwayCandy(char selectedCandyMenuOption)
+        internal void GoodbyeCandy(char selectedCandyMenuOption, int numberOfCandies)
         {
             var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
-            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
             var forRealTheCandyThisTime = (CandyType)candyOption;
 
             switch (forRealTheCandyThisTime)
             {
                 case CandyType.TaffyNotLaffy:
-                    _countOfTaffy = 0;
+                    if(_countOfTaffy < 1)
+                    {
+                    break;
+                    }
+                    _countOfTaffy -= numberOfCandies;
                     break;
                 case CandyType.CandyCoated:
-                    _countOfCandyCoated = 0;
+                    if (_countOfCandyCoated < 1)
+                    {
+                        break;
+                    }
+                    _countOfCandyCoated -= numberOfCandies;
                     break;
                 case CandyType.CompressedSugar:
-                    _countOfChocolateBar = 0;
+                    if (_countOfChocolateBar < 1)
+                    {
+                        break;
+                    }
+                    _countOfChocolateBar -= numberOfCandies;
                     break;
                 case CandyType.ZagnutStyle:
-                    _countOfZagnut = 0;
+                    if (_countOfZagnut < 1)
+                    {
+                        break;
+                    }
+                    _countOfZagnut -= numberOfCandies;
                     break;
                 default:
                     break;
