@@ -12,13 +12,6 @@ namespace CandyMarket
 		private int _countOfChocolateBar;
 		private int _countOfZagnut;
 
-		/**
-		 * this is just an example.
-		 * feel free to modify the definition of this collection "BagOfCandy" 
-         * if you choose to implement the more difficult data model.
-		 * Dictionary<CandyType, List<Candy>> BagOfCandy { get; set; }
-		 */
-
 		public DatabaseContext(int tone) => Console.Beep(tone, 2500);
 
 		internal List<string> GetCandyTypes()
@@ -30,10 +23,29 @@ namespace CandyMarket
 				.ToList();
 		}
 
-		internal void SaveNewCandy(char selectedCandyMenuOption)
+        internal List<string> GetUserTypes()
+        {
+            return Enum
+                .GetNames(typeof(Users))
+                .Select(users =>
+                    users.Humanize(LetterCasing.Title))
+                .ToList();
+        }
+
+        internal Dictionary<string, int> CandyGroup()
+        {
+            var contents = new Dictionary<string, int>();
+            contents.Add("Taffy", _countOfTaffy);
+            contents.Add("Candy Coated", _countOfCandyCoated);
+            contents.Add("Chocolate Bar", _countOfChocolateBar);
+            contents.Add("Zagnut", _countOfZagnut);
+
+            return contents;
+        }
+
+        internal void SaveNewCandy(char selectedCandyMenuOption)
 		{
 			var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
 			var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
 			var forRealTheCandyThisTime = (CandyType)candyOption;
 
@@ -59,7 +71,6 @@ namespace CandyMarket
         internal void EatCandy(char selectedCandyMenuOption)
         {
             var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
             var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
             var forRealTheCandyThisTime = (CandyType)candyOption;
 
@@ -82,26 +93,40 @@ namespace CandyMarket
             }
         }
 
-        internal void ThrowAwayCandy(char selectedCandyMenuOption)
+        internal void GoodbyeCandy(char selectedCandyMenuOption, int numberOfCandies)
         {
             var candyOption = int.Parse(selectedCandyMenuOption.ToString());
-
-            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
             var forRealTheCandyThisTime = (CandyType)candyOption;
 
             switch (forRealTheCandyThisTime)
             {
                 case CandyType.TaffyNotLaffy:
-                    _countOfTaffy = 0;
+                    if(_countOfTaffy < 1)
+                    {
+                    break;
+                    }
+                    _countOfTaffy -= numberOfCandies;
                     break;
                 case CandyType.CandyCoated:
-                    _countOfCandyCoated = 0;
+                    if (_countOfCandyCoated < 1)
+                    {
+                        break;
+                    }
+                    _countOfCandyCoated -= numberOfCandies;
                     break;
                 case CandyType.CompressedSugar:
-                    _countOfChocolateBar = 0;
+                    if (_countOfChocolateBar < 1)
+                    {
+                        break;
+                    }
+                    _countOfChocolateBar -= numberOfCandies;
                     break;
                 case CandyType.ZagnutStyle:
-                    _countOfZagnut = 0;
+                    if (_countOfZagnut < 1)
+                    {
+                        break;
+                    }
+                    _countOfZagnut -= numberOfCandies;
                     break;
                 default:
                     break;
