@@ -55,5 +55,57 @@ namespace CandyMarket
 					break;
 			}
 		}
-	}
+
+        internal void EatCandy(char selectedCandyMenuOption)
+        {
+            var candyOption = int.Parse(selectedCandyMenuOption.ToString());
+
+            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
+            var forRealTheCandyThisTime = (CandyType)candyOption;
+
+            switch (forRealTheCandyThisTime)
+            {
+                case CandyType.TaffyNotLaffy:
+                    --_countOfTaffy;
+                    break;
+                case CandyType.CandyCoated:
+                    --_countOfCandyCoated;
+                    break;
+                case CandyType.CompressedSugar:
+                    --_countOfChocolateBar;
+                    break;
+                case CandyType.ZagnutStyle:
+                    --_countOfZagnut;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        internal void ThrowAwayCandy(char selectedCandyMenuOption)
+        {
+            var candyOption = int.Parse(selectedCandyMenuOption.ToString());
+
+            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOption;
+            var forRealTheCandyThisTime = (CandyType)candyOption;
+
+            switch (forRealTheCandyThisTime)
+            {
+                case CandyType.TaffyNotLaffy:
+                    _countOfTaffy = 0;
+                    break;
+                case CandyType.CandyCoated:
+                    _countOfCandyCoated = 0;
+                    break;
+                case CandyType.CompressedSugar:
+                    _countOfChocolateBar = 0;
+                    break;
+                case CandyType.ZagnutStyle:
+                    _countOfZagnut = 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
