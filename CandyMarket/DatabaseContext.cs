@@ -12,13 +12,6 @@ namespace CandyMarket
 		private int _countOfChocolateBar;
 		private int _countOfZagnut;
 
-		/**
-		 * this is just an example.
-		 * feel free to modify the definition of this collection "BagOfCandy" 
-         * if you choose to implement the more difficult data model.
-		 * Dictionary<CandyType, List<Candy>> BagOfCandy { get; set; }
-		 */
-
 		public DatabaseContext(int tone) => Console.Beep(tone, 2500);
 
 		internal List<string> GetCandyTypes()
@@ -29,6 +22,15 @@ namespace CandyMarket
 					candyType.Humanize(LetterCasing.Title))
 				.ToList();
 		}
+
+        internal List<string> GetUserTypes()
+        {
+            return Enum
+                .GetNames(typeof(Users))
+                .Select(users =>
+                    users.Humanize(LetterCasing.Title))
+                .ToList();
+        }
 
 		internal void SaveNewCandy(char selectedCandyMenuOption)
 		{
