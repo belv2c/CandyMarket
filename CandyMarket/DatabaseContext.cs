@@ -32,7 +32,18 @@ namespace CandyMarket
                 .ToList();
         }
 
-		internal void SaveNewCandy(char selectedCandyMenuOption)
+        internal Dictionary<string, int> CandyGroup()
+        {
+            var contents = new Dictionary<string, int>();
+            contents.Add("Taffy", _countOfTaffy);
+            contents.Add("Candy Coated", _countOfCandyCoated);
+            contents.Add("Chocolate Bar", _countOfChocolateBar);
+            contents.Add("Zagnut", _countOfZagnut);
+
+            return contents;
+        }
+
+        internal void SaveNewCandy(char selectedCandyMenuOption)
 		{
 			var candyOption = int.Parse(selectedCandyMenuOption.ToString());
 
